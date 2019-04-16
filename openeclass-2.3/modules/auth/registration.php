@@ -86,7 +86,7 @@ $tool_content .= "\n<br></td></tr><tr><td>&nbsp;</td></tr><tr>
 	</tr><tr><td>";
 
 if(!empty($auth)) {
-        $tool_content .= "<p><img style='border:0px;' src='${urlServer}/template/classic/img/arrow_grey.gif' title='bullet'>&nbsp;&nbsp;<a href=\"newprof.php\">$langNewAccount</a></p>";
+        $tool_content .= "<p><img style='border:0px;' src='${urlServer}/template/classic/img/arrow_grey.gif' title='bullet'>&nbsp;&nbsp;$langNewAccount</a></p>";
         if (count($auth) > 1) {
                 $tool_content .= "<br><p><span style=\"border-bottom: 1px dotted silver;\">$langUserAccountInfo3</span>&nbsp;:</p>";
         }
