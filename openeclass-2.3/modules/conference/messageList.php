@@ -99,6 +99,7 @@ if (isset($_GET['store']) && $is_adminOfCourse) {
 if (isset($chatLine) and trim($chatLine) != '') { //$chatLine contains the message the user wants to send
 	$fchat = fopen($fileChatName,'a');
 	// need to use htmlspecialchars to prevent receiving a script as a message
+	$chatLine = htmlspecialchars($chatLine);
 	$chatLine = mathfilter($chatLine, 12, '../../courses/mathimg/');
 	fwrite($fchat,$timeNow.' - '.$nick.' : '.stripslashes($chatLine)."\n");
 	fclose($fchat);
