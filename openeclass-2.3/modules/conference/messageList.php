@@ -33,7 +33,7 @@ include '../../include/baseTheme.php';
 <title>Chat messages</title>
 <style type="text/css">
 span { color: #727266; }
-div { font-size: 90%; } 
+div { font-size: 90%; }
 body { font-family: Verdana, Arial, Helvetica, sans-serif; }
 </style>
 </head>
@@ -96,8 +96,9 @@ if (isset($_GET['store']) && $is_adminOfCourse) {
 }
 
 // add new line
-if (isset($chatLine) and trim($chatLine) != '') {
+if (isset($chatLine) and trim($chatLine) != '') { //$chatLine contains the message the user wants to send
 	$fchat = fopen($fileChatName,'a');
+	// need to use htmlspecialchars to prevent receiving a script as a message
 	$chatLine = mathfilter($chatLine, 12, '../../courses/mathimg/');
 	fwrite($fchat,$timeNow.' - '.$nick.' : '.stripslashes($chatLine)."\n");
 	fclose($fchat);
