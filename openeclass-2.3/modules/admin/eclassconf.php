@@ -193,7 +193,7 @@ else {
   </tr>
   <tr>
     <th class=\"left\"><b>\$mysqlPassword:</b></th>
-    <td><input class=\"FormData_InputText\" type=\"password\" name=\"formmysqlPassword\" size=\"40\" value=\"".$mysqlPassword."\"></td>
+    <td><input class=\"FormData_InputText\" type=\"password\" name=\"formmysqlPassword\" size=\"40\" value=\"".hash('ripemd160', $mysqlPassword)."\"></td>
   </tr>
   <tr>
     <th class=\"left\"><b>\$mysqlMainDb:</b></th>
