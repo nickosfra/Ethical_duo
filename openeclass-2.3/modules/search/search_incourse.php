@@ -77,7 +77,7 @@ if(empty($or_search_terms) && empty($not_search_terms)) {
 ***********************************************************************************************/
 
 	$tool_content .= "
-    <form method=\"post\" action=\"$_SERVER[PHP_SELF]\">
+    <form method=\"post\" action=\"".htmlspecialchars($_SERVER[PHP_SELF])."\">
 	<table width=\"99%\">
     <tbody>
 	<tr>
@@ -276,7 +276,7 @@ if(empty($or_search_terms) && empty($not_search_terms)) {
 		{
 			while($res = mysql_fetch_array($result))
 			{
-				if (empty($res['comment']))  { 
+				if (empty($res['comment']))  {
 					$add_comment = "";
 				} else {
 					$add_comment = ": ($res[comment])";
@@ -313,9 +313,9 @@ if(empty($or_search_terms) && empty($not_search_terms)) {
 			{
 				while(@$res = mysql_fetch_array($result))
 				{
-					if (empty($res['description'])) { 
+					if (empty($res['description'])) {
 						$desc_text = "";
-					} else { 
+					} else {
 						$desc_text = ": ($res[description])";
 					}
 					$link_exercise =" ${urlServer}/modules/exercice/exercice_submit.php?exerciseId=$res[id]";
@@ -343,7 +343,7 @@ if(empty($or_search_terms) && empty($not_search_terms)) {
 		<td><div class=\"Results\">";
 			$myquery = "SELECT * FROM posts_text WHERE MATCH (post_text)".$query;
 			$result = mysql_query($myquery);
-	
+
 			$c = 0;
 			if(mysql_num_rows($result) > 0)
 			{
@@ -353,18 +353,18 @@ if(empty($or_search_terms) && empty($not_search_terms)) {
 					$tmp_result .= "\n<li>".$res['post_text']."</li>";
 				}
 			}
-	
+
 			$myquery = "SELECT * FROM forums WHERE MATCH (forum_name,forum_desc)".$query;
 			$result = mysql_query($myquery);
-	
+
 			$c = 0;
 			if(mysql_num_rows($result) > 0)
 			{
 				while(@$res = mysql_fetch_array($result))
 				{
-				if (empty($res['forum_desc'])) { 
+				if (empty($res['forum_desc'])) {
 						$desc_text = "";
-					} else { 
+					} else {
 						$desc_text = ": ($res[forum_desc])";
 					}
 					$link_posts = "${urlServer}/modules/phpbb/viewforum.php?forum=$res[forum_id]";
@@ -392,12 +392,12 @@ if(empty($or_search_terms) && empty($not_search_terms)) {
 		{
 			while(@$res = mysql_fetch_array($result))
 			{
-				if (empty($res['description'])) { 
+				if (empty($res['description'])) {
 					$desc_text = "";
-				} else { 
+				} else {
 					$desc_text = "($res[description])";
 				}
-				$link_url = "{$urlServer}modules/link/link_goto.php?link_id=$res[id]&link_url=$res[url]"; 
+				$link_url = "{$urlServer}modules/link/link_goto.php?link_id=$res[id]&link_url=$res[url]";
 				$c++;
 				$tmp_result .= "\n<li><a href='$link_url' target=_blank>".$res['url']."</a>: ".$res['titre']." $desc_text</li>";
 			}

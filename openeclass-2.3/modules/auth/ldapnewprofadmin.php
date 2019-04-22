@@ -62,7 +62,7 @@ if ($submit)  {
 	}
 
 	// check if user name exists
-    	$username_check = db_query("SELECT username FROM `$mysqlMainDb`.user 
+    	$username_check = db_query("SELECT username FROM `$mysqlMainDb`.user
 			WHERE username=".autoquote($pu));
 	if (mysql_num_rows($username_check) > 0) {
 		$tool_content .= "<p class='caution_small'>$langUserFree</p><br><br><p align='right'>
@@ -98,7 +98,7 @@ if ($submit)  {
 			autoquote($pe) .
 			", 1, $department, " . autoquote($comment) . ", $registered_at, $expires_at, '$lang')");
 
-	//  Update table prof_request 
+	//  Update table prof_request
 	$rid = intval($_POST['rid']);
 	db_query("UPDATE prof_request set status = '2',date_closed = NOW() WHERE rid = '$rid'");
 		$emailbody = "$langDestination $pu $ps\n" .
@@ -126,10 +126,10 @@ if ($submit)  {
 	</td>
 	</tr></tbody></table>";
 
-} else { 
+} else {
 	// if not submit then display the form
 	if (isset($id)) { // if we come from prof request
-		$res = mysql_fetch_array(db_query("SELECT profname,profsurname, profuname, profemail, 
+		$res = mysql_fetch_array(db_query("SELECT profname,profsurname, profuname, profemail,
 			proftmima, comment, lang FROM prof_request WHERE rid='$id'"));
 		$ps = $res['profsurname'];
 		$pn = $res['profname'];
@@ -140,7 +140,7 @@ if ($submit)  {
 		$lang = $res['lang'];
 	}
 
-	$tool_content .= "<form action='$_SERVER[PHP_SELF]' method='post'>
+	$tool_content .= "<form action='".htmlspecialchars($_SERVER[PHP_SELF])."' method='post'>
 	<table width='99%' class='FormData'>
 	<tbody>
 	<tr>

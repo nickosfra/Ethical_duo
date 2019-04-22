@@ -305,7 +305,7 @@ function submit_work($id) {
 	$local_name = replace_dangerous_char($local_name);
 	if (preg_match('/\.(ade|adp|bas|bat|chm|cmd|com|cpl|crt|exe|hlp|hta|' .'inf|ins|isp|jse|lnk|mdb|mde|msc|msi|msp|mst|pcd|pif|reg|scr|sct|shs|' .'shb|url|vbe|vbs|wsc|wsf|wsh)$/', $_FILES['userfile']['name'])) {
 		$tool_content .= "<p class=\"caution_small\">$langUnwantedFiletype: {$_FILES['userfile']['name']}<br />";
-		$tool_content .= "<a href=\"$_SERVER[PHP_SELF]?id=$id\">$langBack</a></p><br />";
+		$tool_content .= "<a href=\"".htmlspecialchars($_SERVER[PHP_SELF])."?id=$id\">$langBack</a></p><br />";
 		return;
 	}
 	$secret = work_secret($id);
@@ -803,7 +803,7 @@ function show_assignment($id, $message = FALSE)
 		WHERE assign.assignment_id='$id' AND user.user_id = assign.uid
 		ORDER BY $order $rev");
 
-	/*  The query is changed (AND assign.grade<>'' is appended) in order to constract the chart of 
+	/*  The query is changed (AND assign.grade<>'' is appended) in order to constract the chart of
 	 * grades distribution according to the graded works only (works that are not graded are omitted). */
 	$numOfResults = db_query("SELECT *
 		FROM `$GLOBALS[code_cours]`.assignment_submit AS assign,
@@ -811,7 +811,7 @@ function show_assignment($id, $message = FALSE)
 		WHERE assign.assignment_id='$id' AND user.user_id = assign.uid AND assign.grade<>''
 		ORDER BY $order $rev");
 	$num_resultsForChart = mysql_num_rows($numOfResults);
-	
+
 	$num_results = mysql_num_rows($result);
 	if ($num_results > 0) {
 		if ($num_results == 1) {
@@ -1174,7 +1174,7 @@ function submit_grade_comments($id, $sid, $grade, $comment)
 
 	$stupid_user = 0;
 
-	/*  If check expression is changed by nikos, in order to give to teacher the ability to 
+	/*  If check expression is changed by nikos, in order to give to teacher the ability to
 	 * assign comments to a work without assigning grade. */
 	if (!is_numeric($grade) && '' != $grade ) {
 		$tool_content .= $langWorkWrongInput;

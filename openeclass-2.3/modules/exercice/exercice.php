@@ -129,10 +129,10 @@ if ($maxpage > 0) {
 	$prevpage = $page - 1;
 	$nextpage = $page + 1;
 	if ($prevpage >= 0) {
- 		$tool_content .= "<small><a href='$_SERVER[PHP_SELF]?page=$prevpage'>&lt;&lt; $langPreviousPage</a></small>&nbsp;";
+ 		$tool_content .= "<small><a href='".htmlspecialchars($_SERVER[PHP_SELF])."?page=$prevpage'>&lt;&lt; $langPreviousPage</a></small>&nbsp;";
 	}
-	if ($nextpage < $maxpage) { 
-		$tool_content .= "<small><a href='$_SERVER[PHP_SELF]?page=$nextpage'>$langNextPage &gt;&gt;</a></small>";
+	if ($nextpage < $maxpage) {
+		$tool_content .= "<small><a href='".htmlspecialchars($_SERVER[PHP_SELF])."?page=$nextpage'>$langNextPage &gt;&gt;</a></small>";
 	}
 }
 
@@ -200,12 +200,12 @@ while($row = mysql_fetch_array($result)) {
 		}
 
 		$eid = $row['id'];
-		$NumOfResults = mysql_fetch_array(db_query("SELECT COUNT(*) FROM exercise_user_record 
+		$NumOfResults = mysql_fetch_array(db_query("SELECT COUNT(*) FROM exercise_user_record
 			WHERE eid='$eid'", $currentCourseID));
 
 	if ($NumOfResults[0]) {
 		$tool_content .= "<td align=\"center\"><nobr><a href=\"results.php?exerciseId=".$row['id']."\">".
-		$langExerciseScores1."</a> | 
+		$langExerciseScores1."</a> |
 		<a href=\"csv.php?exerciseId=".$row['id']."\" target=_blank>".$langExerciseScores3."</a></nobr></td>";
 	} else {
 		$tool_content .= "<td align=\"center\">	-&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;- </td>";
@@ -223,18 +223,18 @@ cData;
 	// if active
 	if($row['active']) {
 		if (isset($page)) {
-			$tool_content .= "<a href=\"$_SERVER[PHP_SELF]?choice=disable&amp;page=${page}&amp;exerciseId=".$row['id']."\">"."<img src='../../template/classic/img/visible.gif' alt='$langVisible' title='$langVisible' /></a>&nbsp;";
+			$tool_content .= "<a href=\"".htmlspecialchars($_SERVER[PHP_SELF])."?choice=disable&amp;page=${page}&amp;exerciseId=".$row['id']."\">"."<img src='../../template/classic/img/visible.gif' alt='$langVisible' title='$langVisible' /></a>&nbsp;";
 		} else {
 			$tool_content .= "
-			<a href='$_SERVER[PHP_SELF]?choice=disable&amp;exerciseId=".$row['id']."'>"."<img src='../../template/classic/img/visible.gif' alt='$langVisible' title='$langVisible' /></a>&nbsp;";
+			<a href='".htmlspecialchars($_SERVER[PHP_SELF])."?choice=disable&amp;exerciseId=".$row['id']."'>"."<img src='../../template/classic/img/visible.gif' alt='$langVisible' title='$langVisible' /></a>&nbsp;";
 		}
 	} else { // else if not active
 		if (isset($page)) {
 			$tool_content .= "
-			<a href='$_SERVER[PHP_SELF]?choice=enable&amp;page=${page}&amp;exerciseId=".$row['id']."'>"."<img src='../../template/classic/img/invisible.gif' alt='$langVisible' title='$langVisible' /></a>&nbsp;";
+			<a href='".htmlspecialchars($_SERVER[PHP_SELF])."?choice=enable&amp;page=${page}&amp;exerciseId=".$row['id']."'>"."<img src='../../template/classic/img/invisible.gif' alt='$langVisible' title='$langVisible' /></a>&nbsp;";
 		} else {
 			$tool_content .= "
-			<a href='$_SERVER[PHP_SELF]?choice=enable&amp;exerciseId=".$row['id']."'>"."<img src='../../template/classic/img/invisible.gif' alt='$langVisible' title='$langVisible' /></a>&nbsp;";
+			<a href='".htmlspecialchars($_SERVER[PHP_SELF])."?choice=enable&amp;exerciseId=".$row['id']."'>"."<img src='../../template/classic/img/invisible.gif' alt='$langVisible' title='$langVisible' /></a>&nbsp;";
 		}
 	}
 	$tool_content .= "</td></tr>";

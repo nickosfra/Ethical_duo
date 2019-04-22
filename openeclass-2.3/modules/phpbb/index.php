@@ -85,20 +85,20 @@ if ($is_adminOfCourse || $is_admin) {
 }
 
 if(isset($forumcatnotify)) { // modify forum category notification
-		$rows = mysql_num_rows(db_query("SELECT * FROM forum_notify 
+		$rows = mysql_num_rows(db_query("SELECT * FROM forum_notify
 			WHERE user_id = $uid AND cat_id = $cat_id AND course_id = $cours_id", $mysqlMainDb));
 		if ($rows > 0) {
-			db_query("UPDATE forum_notify SET notify_sent = '$forumcatnotify' 
+			db_query("UPDATE forum_notify SET notify_sent = '$forumcatnotify'
 				WHERE user_id = $uid AND cat_id = $cat_id AND course_id = $cours_id", $mysqlMainDb);
 	} else {
 		db_query("INSERT INTO forum_notify SET user_id = $uid,
 		cat_id = $cat_id, notify_sent = 1, course_id = $cours_id", $mysqlMainDb);
 	}
 } elseif(isset($forumnotify)) { // modify forum notification
-	$rows = mysql_num_rows(db_query("SELECT * FROM forum_notify 
+	$rows = mysql_num_rows(db_query("SELECT * FROM forum_notify
 		WHERE user_id = $uid AND forum_id = $forum_id AND course_id = $cours_id", $mysqlMainDb));
 	if ($rows > 0) {
-		db_query("UPDATE forum_notify SET notify_sent = '$forumnotify' 
+		db_query("UPDATE forum_notify SET notify_sent = '$forumnotify'
 			WHERE user_id = $uid AND forum_id = $forum_id AND course_id = $cours_id", $mysqlMainDb);
 	} else {
 		db_query("INSERT INTO forum_notify SET user_id = $uid,
@@ -114,7 +114,7 @@ $sql = "SELECT c.* FROM catagories c, forums f
 	 GROUP BY c.cat_id, c.cat_title, c.cat_order
 	 ORDER BY cat_order, c.cat_id DESC";
 
-$result = db_query($sql, $currentCourseID); 
+$result = db_query($sql, $currentCourseID);
 $total_categories = mysql_num_rows($result);
 
 if ($total_categories) {
@@ -146,7 +146,7 @@ if ($total_categories) {
 	$sql = "SELECT f.*, p.post_time, p.nom, p.prenom, p.topic_id
 		FROM forums f LEFT JOIN posts p ON p.post_id = f.forum_last_post_id
 		$limit_forums ORDER BY f.cat_id, f.forum_id";
-	$f_res = db_query($sql, $currentCourseID); 
+	$f_res = db_query($sql, $currentCourseID);
 	$tool_content .= "<tbody>";
 	while ($forum_data = mysql_fetch_array($f_res)) {
 		$forum_row[] = $forum_data;
@@ -161,7 +161,7 @@ if ($total_categories) {
 		}
 		$title = stripslashes($categories[$i]["cat_title"]);
 		$catNum = $categories[$i]["cat_id"];
-		list($action_notify) = mysql_fetch_row(db_query("SELECT notify_sent FROM forum_notify 
+		list($action_notify) = mysql_fetch_row(db_query("SELECT notify_sent FROM forum_notify
 				WHERE user_id = $uid AND cat_id = $catNum AND course_id = $cours_id", $mysqlMainDb));
 		if (!isset($action_notify)) {
 			$link_notify = FALSE;
@@ -172,9 +172,9 @@ if ($total_categories) {
 		}
 		$tool_content .= "<tr><td colspan='5' class='Forum'>&nbsp;$title</td>
 			<td class='Forum' style='text-align:center'>
-			<a href='$_SERVER[PHP_SELF]?forumcatnotify=$link_notify&amp;cat_id=$catNum'>	
+			<a href='".htmlspecialchars($_SERVER[PHP_SELF])."?forumcatnotify=$link_notify&amp;cat_id=$catNum'>
 			<img src='../../template/classic/img/announcements$icon.gif' title='$langNotify' alt='$langNotify' /></a></td></tr>";
-			
+
 		@reset($forum_row);
 		for ($x=0; $x < count($forum_row); $x++) {
 			unset($last_post);
@@ -244,7 +244,7 @@ if ($total_categories) {
 				} else {
 					$tool_content .= "<font color='#CAC3B5'>$langNoPosts</font></td>";
 				}
-				list($forum_action_notify) = mysql_fetch_row(db_query("SELECT notify_sent FROM forum_notify 
+				list($forum_action_notify) = mysql_fetch_row(db_query("SELECT notify_sent FROM forum_notify
 					WHERE user_id = $uid AND forum_id = $forum AND course_id = $cours_id", $mysqlMainDb));
 				if (!isset($forum_action_notify)) {
 					$forum_link_notify = FALSE;
@@ -254,7 +254,7 @@ if ($total_categories) {
 					$forum_icon = toggle_icon($forum_action_notify);
 				}
 				$tool_content .= "<td class='Forum_leftside' style='text-align:center'>
-					<a href='$_SERVER[PHP_SELF]?forumnotify=$forum_link_notify&amp;forum_id=$forum'>	
+					<a href='".htmlspecialchars($_SERVER[PHP_SELF])."?forumnotify=$forum_link_notify&amp;forum_id=$forum'>	
 					<img src='../../template/classic/img/announcements$forum_icon.gif' title='$langNotify' alt='$langNotify' /></a></td>";
 				$tool_content .= "</tr>";
 			}

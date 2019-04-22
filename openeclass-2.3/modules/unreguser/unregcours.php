@@ -47,8 +47,8 @@ if (!isset($doit) or $doit != "yes") {
       <td class='caution_NoBorder' height='60' colspan='2'>
       	<p>$langConfirmUnregCours:</p><p> <em>".course_code_to_title($cid)."</em>&nbsp;? </p>
 	<ul class='listBullet'>
-	<li>$langYes: 
-	<a href='$_SERVER[PHP_SELF]?u=$uid&amp;cid=$cid&amp;doit=yes' class=mainpage>$langUnregCours</a>
+	<li>$langYes:
+	<a href='".htmlspecialchars($_SERVER[PHP_SELF])."?u=$uid&amp;cid=$cid&amp;doit=yes' class=mainpage>$langUnregCours</a>
 	</li>
 	<li>$langNo: <a href='../../index.php' class=mainpage>$langBack</a>
 	</li></ul>

@@ -52,13 +52,13 @@ if (isset($close_user_registration) and $close_user_registration == TRUE) {
         draw($tool_content,0);
 	exit;
  }
- 
+
 $lang = langname_to_code($language);
 
 // display form
 if (!isset($submit)) {
 	// Main body
-	@$tool_content .= "<form action='$_SERVER[PHP_SELF]' method='post'>
+	@$tool_content .= "<form action='".htmlspecialchars($_SERVER[PHP_SELF])."' method='post'>
 	<table width='99%' style='border: 1px solid #edecdf;'>
 	<thead>
 	<tr>
@@ -183,11 +183,11 @@ if (!isset($submit)) {
 				"$langManager $siteName \n$langTel $telephone \n" .
 				"$langEmail: $emailhelpdesk";
 		}
-	
+
 	send_mail('', '', '', $email, $emailsubject, $emailbody, $charset);
 	$registered_at = time();
 	$expires_at = time() + $durationAccount;  //$expires_at = time() + 31536000;
-	
+
 	// manage the store/encrypt process of password into database
 	$authmethods = array("2","3","4","5");
 	$uname = escapeSimple($uname);  // escape the characters: simple and double quote
@@ -216,7 +216,7 @@ if (!isset($submit)) {
 	$_SESSION['prenom'] = $prenom;
 	$_SESSION['nom'] = $nom;
 	$_SESSION['uname'] = $uname;
-	
+
 	// registration form
 	$tool_content .= "<table width='99%'><tbody><tr>" .
 			"<td class='well-done' height='60'>" .
@@ -231,7 +231,7 @@ if (!isset($submit)) {
 		foreach ($registration_errors as $error) {
 			$tool_content .= "<p>$error</p>";
 		}
-		$tool_content .= "<p><a href='$_SERVER[PHP_SELF]?prenom_form=$_POST[prenom_form]&nom_form=$_POST[nom_form]&uname=$_POST[uname]&email=$_POST[email]&am=$_POST[am]'>$langAgain</a></p>" .
+		$tool_content .= "<p><a href='".htmlspecialchars($_SERVER[PHP_SELF])."?prenom_form=$_POST[prenom_form]&nom_form=$_POST[nom_form]&uname=$_POST[uname]&email=$_POST[email]&am=$_POST[am]'>$langAgain</a></p>" .
 					"</td></tr></tbody></table><br /><br />";
 	}
 

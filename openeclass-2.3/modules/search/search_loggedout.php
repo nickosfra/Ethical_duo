@@ -43,7 +43,7 @@ if(empty($search_terms_title) && empty($search_terms_keywords) && empty($search_
 	emfanish formas anahzthshs ean oi oroi anazhthshs einai kenoi
 ***********************************************************************************************/
 	$tool_content .= "
-    <form method=\"post\" action=\"$_SERVER[PHP_SELF]\">
+    <form method=\"post\" action=\"".htmlspecialchars($_SERVER[PHP_SELF])."\">
 		<table width=\"99%\">
         <tbody>
 		<tr>

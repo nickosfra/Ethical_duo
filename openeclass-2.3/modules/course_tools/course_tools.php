@@ -131,7 +131,7 @@ if ($is_adminOfCourse){
 	if  (isset($_REQUEST['toolStatus']) ){
 		if(isset($_POST['toolStatActive'])) $tool_stat_active = $_POST['toolStatActive'];
 
-		
+
 
 		if (isset($tool_stat_active)) {
 			$loopCount = count($tool_stat_active);
@@ -167,7 +167,7 @@ if ($is_adminOfCourse){
 			db_query("UPDATE accueil SET visible = 1 WHERE $tool_id", $dbname);
 		}
 		db_query("UPDATE `accueil` SET `visible` = 2 WHERE define_var = 'MODULE_ID_UNITS'", $dbname);
-		
+
 		if (isset($tool_stat_active) && is_array($tool_stat_active)) {
 			if (in_array(1, $tool_stat_active)) {
 				//if the agenda module is set to active
@@ -210,7 +210,7 @@ if ($is_adminOfCourse){
 					//and the agenda module was active before, we need to delete this lesson's events
 					//from the main agenda table (main database)
 
-					$perso_sql= "DELETE FROM $mysqlMainDb.agenda 
+					$perso_sql= "DELETE FROM $mysqlMainDb.agenda
 						WHERE lesson_code= '$currentCourseID'";
 					db_query($perso_sql, $mysqlMainDb);
 				}
@@ -241,7 +241,7 @@ if ($is_adminOfCourse){
 
 	if(isset($submit) &&  @$action == 2) {
 		if (($link == "http://") or ($link == "ftp://") or empty($link) or empty($name_link))  {
-			$tool_content .= "<p class=\"caution_small\">$langInvalidLink<br /><a href=\"$_SERVER[PHP_SELF]?action=2\">$langHome</a></p><br />";
+			$tool_content .= "<p class=\"caution_small\">$langInvalidLink<br /><a href=\"".htmlspecialchars($_SERVER[PHP_SELF])."?action=2\">$langHome</a></p><br />";
 			draw($tool_content, 2, 'course_tools');
 			exit();
 		}
@@ -305,7 +305,7 @@ if ($is_adminOfCourse){
 
 			$tool_content .= "<p class=\"success_small\">$langOkSent</p><br/>";
 		} else {
-			$tool_content .= "<p class=\"caution_small\">$langTooBig<br /><a href=\"$_SERVER[PHP_SELF]?action=1\">$langHome</a></p><br />";
+			$tool_content .= "<p class=\"caution_small\">$langTooBig<br /><a href=\"".htmlspecialchars($_SERVER[PHP_SELF])."?action=1\">$langHome</a></p><br />";
 			draw($tool_content, 2, 'course_tools');
 		}	// else
 		unset($action);
@@ -319,7 +319,7 @@ if ($is_adminOfCourse && @$action == 1) {//upload html file
 	$navigation[]= array ("url"=>"course_tools.php", "name"=> $langToolManagement);
 	$helpTopic = 'Import';
 
-	$tool_content .= "<form method=\"POST\" action=\"$_SERVER[PHP_SELF]?submit=yes&action=1\" enctype=\"multipart/form-data\">
+	$tool_content .= "<form method=\"POST\" action=\"".htmlspecialchars($_SERVER[PHP_SELF])."?submit=yes&action=1\" enctype=\"multipart/form-data\">
 	<p>$langExplanation_0</p>
 	<p>$langExplanation_3</p>
 	<br />
@@ -358,7 +358,7 @@ if ($is_adminOfCourse && @$action == 2) {//add external link
 	$navigation[]= array ("url"=>"course_tools.php", "name"=> $langToolManagement);
 	$helpTopic = 'Module';
 
-	$tool_content .=  "<form method=\"post\" action=\"$_SERVER[PHP_SELF]?submit=yes&action=2\">
+	$tool_content .=  "<form method=\"post\" action=\"".htmlspecialchars($_SERVER[PHP_SELF])."?submit=yes&action=2\">
 	<br>
 	<table width=\"99%\" align='left' class='FormData'>
 	<tbody>
@@ -431,8 +431,8 @@ if ($is_adminOfCourse) {
 	$tool_content .= "
 	<div id=\"operations_container\">
 	  <ul id=\"opslist\">
-	    <li><a href=\"".$_SERVER['PHP_SELF']."?action=1\">".$langUploadPage."</a></li>
-	    <li><a href=\"".$_SERVER['PHP_SELF']."?action=2\">".$langAddExtLink."</a></li>
+	    <li><a href=\"".htmlspecialchars($_SERVER['PHP_SELF'])."?action=1\">".$langUploadPage."</a></li>
+	    <li><a href=\"".htmlspecialchars($_SERVER['PHP_SELF'])."?action=2\">".$langAddExtLink."</a></li>
 	  </ul>
 	</div>";
 

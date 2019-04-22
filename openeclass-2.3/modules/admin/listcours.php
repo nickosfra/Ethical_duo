@@ -106,11 +106,11 @@ if (isset($search) && $search=="yes") {
 	}
 	$query=join(' AND ',$searchcours);
 	if (!empty($query)) {
-		$sql=mysql_query("SELECT faculte, code, intitule, titulaires, visible, cours_id FROM cours 
+		$sql=mysql_query("SELECT faculte, code, intitule, titulaires, visible, cours_id FROM cours
 			WHERE $query ORDER BY faculte");
 		$caption .= "$langFound ".mysql_num_rows($sql)." $langCourses ";
 	} else {
-		$sql=mysql_query("SELECT faculte, code, intitule,titulaires, visible, cours_id FROM cours 
+		$sql=mysql_query("SELECT faculte, code, intitule,titulaires, visible, cours_id FROM cours
 				ORDER BY faculte");
 		$caption .= "$langFound ".mysql_num_rows($sql)." $langCourses ";
 	}
@@ -119,12 +119,12 @@ if (isset($search) && $search=="yes") {
 else {
 	$a=mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM cours"));
 	$caption .= "".$langManyExist.": <b>".$a[0]." $langCourses</b>";
-	$sql = mysql_query("SELECT faculte, code, intitule, titulaires, visible, cours_id FROM cours 
+	$sql = mysql_query("SELECT faculte, code, intitule, titulaires, visible, cours_id FROM cours
 			ORDER BY faculte,code LIMIT ".$limit.",".$listsize."");
 
 	if ($fulllistsize > $listsize ) {
 		// Display navigation in pages
-		$tool_content .= show_paging($limit, $listsize, $fulllistsize, "$_SERVER[PHP_SELF]");
+		$tool_content .= show_paging($limit, $listsize, $fulllistsize, "".htmlspecialchars($_SERVER[PHP_SELF])."");
 	}
 }
 
@@ -192,7 +192,7 @@ if (isset($search) && $search=="yes") {
 	$tool_content .= "<br /><p align='right'><a href='searchcours.php'>".$langReturnSearch."</a></p>";
 } elseif ($fulllistsize > $listsize) {
 	// Display navigation in pages
-	$tool_content .= show_paging($limit, $listsize, $fulllistsize, "$_SERVER[PHP_SELF]");
+	$tool_content .= show_paging($limit, $listsize, $fulllistsize, "".htmlspecialchars($_SERVER[PHP_SELF])."");
 }
 // Display link to index.php
 $tool_content .= "<br /><p align='right'><a href='index.php'>".$langBack."</a></p>";

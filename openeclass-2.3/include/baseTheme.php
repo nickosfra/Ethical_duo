@@ -187,10 +187,10 @@ function draw($toolContent, $menuTypeID, $tool_css = null, $head_content = null,
 
 		$t->set_var ( 'TOOL_CONTENT', $toolContent );
 
-		// If we are on the login page we can define two optional variables 
+		// If we are on the login page we can define two optional variables
 		// in common.inc.php (to allow internationalizing messages)
 		// for extra content on the left and right bar.
-		
+
 		if ($homePage  && !isset($_SESSION['uid'])) {
 			$t->set_var ( 'ECLASS_HOME_EXTRAS_LEFT', $langExtrasLeft );
 			$t->set_var ( 'ECLASS_HOME_EXTRAS_RIGHT', $langExtrasRight );
@@ -248,10 +248,10 @@ function draw($toolContent, $menuTypeID, $tool_css = null, $head_content = null,
 				if (display_activation_link($module_id)) {
 					if (visible_module($module_id)) {
 						$message = $langDeactivate;
-						$mod_activation = "<a class='deactivate_module' href='$_SERVER[PHP_SELF]?eclass_module_id=$module_id&amp;hide=0'>($langDeactivate)</a>";
+						$mod_activation = "<a class='deactivate_module' href='".htmlspecialchars($_SERVER[PHP_SELF])."?eclass_module_id=$module_id&amp;hide=0'>($langDeactivate)</a>";
 					} else {
 						$message = $langActivate;
-						$mod_activation = "<a class='activate_module' href='$_SERVER[PHP_SELF]?eclass_module_id=$module_id&amp;hide=1'>($langActivate)</a>";
+						$mod_activation = "<a class='activate_module' href='".htmlspecialchars($_SERVER[PHP_SELF])."?eclass_module_id=$module_id&amp;hide=1'>($langActivate)</a>";
 					}
 				}
 			}
@@ -510,4 +510,3 @@ function lang_select_options($name, $onchange_js = '', $default_langcode = false
         }
 	return selection($native_language_names, $name, $default_langcode, $onchange_js);
 }
-

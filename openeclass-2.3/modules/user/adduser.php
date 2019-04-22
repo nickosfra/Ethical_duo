@@ -56,7 +56,7 @@ if (isset($add)) {
 
 } else {
 
-	$tool_content .= "<form method='post' action='$_SERVER[PHP_SELF]'>";
+	$tool_content .= "<form method='post' action='".htmlspecialchars($_SERVER[PHP_SELF])."'>";
 
 if(!isset($search_nom)) $search_nom = "";
 if(!isset($search_prenom)) $search_prenom = "";
@@ -138,14 +138,14 @@ tCont3;
 				$tool_content .= "<td align=\"right\">$i.</td><td>$myrow[prenom]</td>
       				<td>$myrow[nom]</td><td>$myrow[username]</td>
       				<td align=\"center\">
-				<a href=\"$_SERVER[PHP_SELF]?add=$myrow[user_id]\">$langRegister</a></td></tr>\n";
+				<a href=\"".htmlspecialchars($_SERVER[PHP_SELF])."?add=$myrow[user_id]\">$langRegister</a></td></tr>\n";
 				$i++;
 			}
 			$tool_content .= "</tbody>";
 			$tool_content .= "</table>";
         		}
 			db_query("DROP TABLE lala");
-		} 
+		}
 	}
 }
 

@@ -112,7 +112,7 @@ if (isset($_POST['submit'])) {
                 $facs[$n['id']] = $n['name'];
         }
         $tool_content .= "$langMultiRegUserInfo
-<form method='post' action='$_SERVER[PHP_SELF]'>
+<form method='post' action='".htmlspecialchars($_SERVER[PHP_SELF])."'>
 <table class='FormData'>
 <tr><th>$langMultiRegFields</th>
     <td><input type='text' name='fields' size='50' value='first last id email phone' /></td>
@@ -246,4 +246,3 @@ function register($uid, $course_code)
         }
         return false;
 }
-

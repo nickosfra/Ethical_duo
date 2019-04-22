@@ -73,7 +73,7 @@ if (isset($_POST['username'])) {
         } else {
                 $tool_content = "<div class='caution_small'>" . sprintf($langChangeUserNotFound, $_POST['username']) . "</div>";
         }
-} 
+}
 
-$tool_content .= "<form action='$_SERVER[PHP_SELF]' method='post'>$langUsername: <input type='text' name='username' /></form>";
+$tool_content .= "<form action='".htmlspecialchars($_SERVER[PHP_SELF])."' method='post'>$langUsername: <input type='text' name='username' /></form>";
 draw($tool_content,3,'admin');

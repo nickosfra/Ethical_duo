@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*========================================================================
 *   Open eClass 2.3
 *   E-learning and Course Management System
@@ -34,8 +34,8 @@ $tool_content = "";
 
 // Check if user=prof or assistant
 
-if($is_adminOfCourse) 
-{ 
+if($is_adminOfCourse)
+{
 
 	if(isset($submit))
 	{
@@ -46,10 +46,10 @@ if($is_adminOfCourse)
 		if (($file_name != "") && ($file_size <= "$size" )) {
 
 		$file_name = str_replace(" ", "", $file_name);
-		$file_name = str_replace("é", "e", $file_name);
-		$file_name = str_replace("è", "e", $file_name);
-		$file_name = str_replace("ê", "e", $file_name);
-		$file_name = str_replace("à", "a", $file_name);
+		$file_name = str_replace("ï¿½", "e", $file_name);
+		$file_name = str_replace("ï¿½", "e", $file_name);
+		$file_name = str_replace("ï¿½", "e", $file_name);
+		$file_name = str_replace("ï¿½", "a", $file_name);
 
 		@copy("$file", "$updir/$file_name")
 		or die("<p>$langCouldNot</p></tr>");
@@ -71,13 +71,13 @@ if($is_adminOfCourse)
 					'',
 					'HTML_PAGE'
 					)", $currentCourse);
-		
+
 		$tool_content .=  "<table><tbody><tr>
 		<td class=\"success\">$langOkSent.</td></tr>
 		</tbody>
 		</table>";
 		}
-		else 
+		else
 		{
 			$tool_content .= "<table><tbody><tr>
 			<td class=\"caution\">$langTooBig</td>
@@ -91,7 +91,7 @@ if($is_adminOfCourse)
 else
 	{
 		$tool_content .=  "<p>$langExplanation</p>
-		<form method=\"POST\" action=\"$_SERVER[PHP_SELF]?submit=yes\" enctype=\"multipart/form-data\">
+		<form method=\"POST\" action=\"".htmlspecialchars($_SERVER[PHP_SELF])."?submit=yes\" enctype=\"multipart/form-data\">
 		<table><thead><tr><th>$langSendPage :</th>
 		<td><input type=\"file\" name=\"file\" size=\"35\" accept=\"text/html\"></td>
 		</tr><tr><th>$langPgTitle :</th>
@@ -111,4 +111,3 @@ else {
 $tool_content .=  "";
 draw($tool_content, 2);
 ?>
-

@@ -58,20 +58,20 @@ if($submit) {
 	}
 
 	// check if user name exists
-	$username_check = mysql_query("SELECT username FROM `$mysqlMainDb`.user 
+	$username_check = mysql_query("SELECT username FROM `$mysqlMainDb`.user
 			WHERE username=".autoquote($uname));
 	$user_exist = (mysql_num_rows($username_check) > 0);
 
 	// check if there are empty fields
 	if (!$all_set) {
 		$tool_content .= "<p class='caution_small'>$langEmptyFields</p>
-			<br><br><p align='right'><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p>";
+			<br><br><p align='right'><a href='".htmlspecialchars($_SERVER[PHP_SELF])."'>$langAgain</a></p>";
 	} elseif ($user_exist) {
 		$tool_content .= "<p class='caution_small'>$langUserFree</p>
-			<br><br><p align='right'><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p>";
+			<br><br><p align='right'><a href='".htmlspecialchars($_SERVER[PHP_SELF])."'>$langAgain</a></p>";
 	} elseif(!email_seems_valid($email_form)) {
 		$tool_content .= "<p class='caution_small'>$langEmailWrong.</p>
-			<br><br><p align='right'><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p>";
+			<br><br><p align='right'><a href='".htmlspecialchars($_SERVER[PHP_SELF])."'>$langAgain</a></p>";
 	} else {
                 $registered_at = time();
 		$expires_at = time() + $durationAccount;
@@ -100,9 +100,9 @@ if($submit) {
                         // $langAsUser;
                 }
 	       	$tool_content .= "<p class='success_small'>$message</p><br><br><p align='right'><a href='../admin/listreq.php$reqtype'>$langBackRequests</a></p>";
-		
+
 		// send email
-		
+
                 $emailsubject = "$langYourReg $siteName $type_message";
                 $emailbody = "
 $langDestination $prenom_form $nom_form
@@ -117,7 +117,7 @@ $langManager $siteName
 $langTel $telephone
 $langEmail : $emailhelpdesk
 ";
-		
+
 		send_mail('', '', '', $email_form, $emailsubject, $emailbody, $charset);
 
         }
@@ -125,7 +125,7 @@ $langEmail : $emailhelpdesk
 } else {
         $lang = false;
 	if (isset($id)) { // if we come from prof request
-		$res = mysql_fetch_array(db_query("SELECT profname, profsurname, profuname, profemail, proftmima, comment, lang, statut 
+		$res = mysql_fetch_array(db_query("SELECT profname, profsurname, profuname, profemail, proftmima, comment, lang, statut
 			FROM prof_request WHERE rid='$id'"));
 		$ps = $res['profsurname'];
 		$pn = $res['profname'];
@@ -149,7 +149,7 @@ $langEmail : $emailhelpdesk
                 $title = $langNewProf;
         }
 
-	$tool_content .= "<form action='$_SERVER[PHP_SELF]' method='post'>
+	$tool_content .= "<form action='".htmlspecialchars($_SERVER[PHP_SELF])."' method='post'>
 	<table width='99%' align='left' class='FormData'>
 	<tbody><tr>
 	<th width='220'>&nbsp;</th>
@@ -178,7 +178,7 @@ $langEmail : $emailhelpdesk
 	<tr>
 	<th class='left'>$langFaculty</th>
 	<td>";
-	
+
 	$dep = array();
 	$deps = db_query("SELECT id, name FROM faculte order by id");
 	while ($n = mysql_fetch_array($deps)) {
