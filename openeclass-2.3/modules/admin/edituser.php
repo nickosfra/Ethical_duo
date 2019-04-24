@@ -321,7 +321,7 @@ if (mysql_num_rows($username_check) > 1) {
   if (empty($fname) OR empty($lname) OR empty($username)) {
 	$tool_content .= "<table width='99%'><tbody><tr>
         <td class='caution' height='60'><p>$langEmptyFields</p>
-	<p><a href='"htmlspecialchars($_SERVER[PHP_SELF])."'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+	<p><a href='".htmlspecialchars($_SERVER[PHP_SELF])."'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
 	draw($tool_content, 3, ' ', $head_content);
 	    exit();
 	}
