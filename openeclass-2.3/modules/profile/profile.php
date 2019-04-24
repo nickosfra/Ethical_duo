@@ -104,7 +104,7 @@ if (isset($submit) && isset($ldap_submit) && ($ldap_submit == "ON")) {
 
 	mysql_query("UPDATE user SET perso = '$persoStatus',
 		lang = '$langcode' WHERE user_id='".$_SESSION["uid"]."' ");
-	
+
 	if (isset($_SESSION['user_perso_active']) and $persoStatus == "no") {
 		unset($_SESSION['user_perso_active']);
 	}
@@ -211,6 +211,8 @@ $passurl = $urlSecure.'modules/profile/password.php';
 $authmethods = array("imap","pop3","ldap","db","shibboleth");
 
 if ((!isset($changePass)) || isset($_POST['submit'])) {
+  $token = hash('ripemd160', mt_rand());
+  $_SESSION['token'] = $token;
 	$tool_content .= "<div id=\"operations_container\"><ul id=\"opslist\">";
 	if(!in_array($password_form,$authmethods)) {
 		$tool_content .= "<li><a href=\"".$passurl."\">".$langChangePass."</a></li>";
@@ -222,6 +224,8 @@ if ((!isset($changePass)) || isset($_POST['submit'])) {
     <tbody><tr>
        <th width=\"220\" class='left'>$langName</th>";
 
+  $tool_content .= "<input type=\"hidden\" name=\"token\" value=\"$token\" />";
+
 	if (isset($_SESSION['shib_user'])) {
                 $auth_text = "Shibboleth user";
 		$tool_content .= "<td class=\"caution_small\">&nbsp;&nbsp;&nbsp;&nbsp;<b>".$prenom_form."</b> [".$auth_text."]
@@ -229,7 +233,7 @@ if ((!isset($changePass)) || isset($_POST['submit'])) {
 	} else {
 		$tool_content .= "<td><input class='FormData_InputText' type=\"text\" size=\"40\" name=\"prenom_form\" value=\"$prenom_form\"></td>";
 	}
-	
+
 	$tool_content .= "</tr>
     <tr>
        <th class='left'>$langSurname</th>";
