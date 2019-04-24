@@ -129,7 +129,7 @@ hCont;
 if ($is_adminOfCourse){
 	global $dbname;
 	if  (isset($_REQUEST['toolStatus']) ){
-    if (isset($_SESSION['tok']) && ($_POST['tok'] == ['tok'])) {
+    if (isset($_SESSION['tok']) && ($_POST['tok'] == $_SESSION['tok'])) {
 		if(isset($_POST['toolStatActive'])) $tool_stat_active = $_POST['toolStatActive'];
 
 
