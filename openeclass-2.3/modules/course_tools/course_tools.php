@@ -129,6 +129,7 @@ hCont;
 if ($is_adminOfCourse){
 	global $dbname;
 	if  (isset($_REQUEST['toolStatus']) ){
+    if (isset($_SESSION['tok']) && ($_POST['tok'] == $_SESSION['tok'])) {
 		if(isset($_POST['toolStatActive'])) $tool_stat_active = $_POST['toolStatActive'];
 
 
@@ -217,8 +218,10 @@ if ($is_adminOfCourse){
 			}
 		}
 	}
+}
 
 	if (isset($delete)) {
+    if (isset($_SESSION['token']) && ($_POST['token'] == $_SESSION['token'])) {
 		$sql = "SELECT lien, define_var FROM accueil WHERE `id` = ". $delete ." ";
 		$result = db_query($sql, $dbname);
 		while ($res = mysql_fetch_row($result)){
@@ -235,11 +238,13 @@ if ($is_adminOfCourse){
 
 		$tool_content .= "<p class=\"success_small\">$langLinkDeleted</p><br/>";
 	}
+}
 
 
 	//--add external link
 
 	if(isset($submit) &&  @$action == 2) {
+    if (isset($_SESSION['token1']) && ($_POST['token1'] == $_SESSION['token1'])) {
 		if (($link == "http://") or ($link == "ftp://") or empty($link) or empty($name_link))  {
 			$tool_content .= "<p class=\"caution_small\">$langInvalidLink<br /><a href=\"".htmlspecialchars($_SERVER[PHP_SELF])."?action=2\">$langHome</a></p><br />";
 			draw($tool_content, 2, 'course_tools');
@@ -269,11 +274,13 @@ if ($is_adminOfCourse){
 		$tool_content .= "<p class=\"success_small\">$langLinkAdded</p><br/>";
 		unset($action);
 	}
+}
 // -------------------------
 //upload html page
 // -------------------------
 
 	if(isset($submit) &&  @$action == 1){
+    if (isset($_SESSION['token2']) && ($_POST['token2'] == $_SESSION['token2'])) {
 		$updir = "$webDir/courses/$currentCourseID/page/"; //path to upload directory
 		$size = "20971520"; //file size is 20M (1024x1024x20)
 		if (isset($file_name) and ($file_name != "") && ($file_size <= "$size") and ($link_name != "")) {
@@ -311,9 +318,13 @@ if ($is_adminOfCourse){
 		unset($action);
 	}
 }
+}
 
 //------------------------------------------------------
 if ($is_adminOfCourse && @$action == 1) {//upload html file
+
+  $token = hash('ripemd160', mt_rand());
+  $_SESSION['token2'] = $token2;
 
 	$nameTools = $langUploadPage;
 	$navigation[]= array ("url"=>"course_tools.php", "name"=> $langToolManagement);
@@ -354,6 +365,8 @@ if ($is_adminOfCourse && @$action == 1) {//upload html file
 
 if ($is_adminOfCourse && @$action == 2) {//add external link
 
+  $token = hash('ripemd160', mt_rand());
+  $_SESSION['token1'] = $token1;
 	$nameTools = $langAddExtLink;
 	$navigation[]= array ("url"=>"course_tools.php", "name"=> $langToolManagement);
 	$helpTopic = 'Module';
@@ -427,6 +440,8 @@ if ($is_adminOfCourse) {
 		}
 	}
 
+  $token = hash('ripemd160', mt_rand());
+  $_SESSION['tok'] = $tok;
 	//output tool content
 	$tool_content .= "
 	<div id=\"operations_container\">
@@ -476,6 +491,8 @@ tForm;
 
 	$extToolsCount = count($externalLinks) ;
 	if ($extToolsCount>0)  {
+    $token = hash('ripemd160', mt_rand());
+    $_SESSION['token'] = $token;
 		//show table to edit/delete external links
 		$tool_content .= "<br/><br/><table width=\"500\">
 		<tbody>
